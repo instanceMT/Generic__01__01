@@ -1,0 +1,66 @@
+﻿  **具象媒體科技** instanceMT.com
+
+  [C#簡單聊~泛型入門(01)]~舉列說明什麼是泛型
+
+  1. 關於泛型：https://learn.microsoft.com/zh-tw/dotnet/csharp/programming-guide/generics/generic-type-parameters
+     1) 泛型(Generic)是一種「萬用」(彈性使用)類型的機制。
+     2) 型別、方法都可搭配泛型。
+     3) 必要時可限制「萬用」的範圍。
+
+  2. 泛型型別：
+     將適用的「型別變數」設定在型別後的角括號(< >)內；型別變數不限一個，若多於一個用「,」 隔開。
+     1) 定義：
+        // Tp1、Tp2 是兩個泛型的型別數
+        public class MyClass<Tp1,Tp2>
+        {
+            public void WriteValue(Tp1 t1,Tp2 t2)
+            {
+                Console.WriteLine($"泛型資料1{t1.ToString()},泛型資料1{t2.ToString()} "); 
+            }
+       }
+     2) 以泛型型別宣告物件並叫用函式：
+        // 在 MyClass 類別內，只要是 Tp1  int, Tp2 就是 float  
+        var obj = new MyClass<int,float>();
+        //obj.WriteValue(12.1,13.4f); // 因為12.1 不是 int, 所以這樣不行
+        obj.WriteValue(12,13.4f);
+        
+  3. 泛型方法：
+     1) 定義實體及靜態泛型方法：
+        public class MyClass<Tp1,Tp2>
+        {
+           // 泛型方法(實體方法)
+           public void WriteValue3<Tpa,Tpb>(Tpa a,Tpb b)
+           {
+             Console.WriteLine($"泛型資料1：{a.ToString()},泛型資料2：{b.ToString()} ");
+           }
+
+           // 泛型方法(靜態方法)
+           public static void WriteValue4<Tp>(Tp t)
+           {
+              Console.WriteLine($"泛型資料：{t}");
+           }
+        }
+
+        public class MyClass2
+        {
+           // 泛型方法(靜態方法)
+           public static void WriteValue4<Tp>(Tp t)
+           {
+               Console.WriteLine($"泛型資料：{t}");
+           }
+        }
+     2) 呼叫方式
+        1) 實體方法：
+            var obj = new MyClass<int,float>();     // 在 MyClass 類別內，只要是 Tp1  int, Tp2 就是 float  
+            obj.WriteValue3<double,int>(12.234,1);  // obj.WriteValue3<double,int>(12.234,1.2);  1.2 不是 int, 不可以
+            obj.WriteValue3(5.333333,1.2f);          // 這樣也可以
+        2) 靜態方法：
+            // MyClass.WriteValue4<double>(123)  這樣不可以
+            // MyClass<,>.WriteValue4<double>(123); 這樣也不可以
+            MyClass<int,int>.WriteValue4<double>(123);
+            
+            MyClass2.WriteValue4(223.222);
+            MyClass2.WriteValue4<int>(223);           
+
+
+  
