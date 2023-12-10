@@ -10,7 +10,7 @@
   2. 泛型型別：
      將適用的「型別變數」設定在型別後的角括號(< >)內；型別變數不限一個，若多於一個用「,」 隔開。
      1) 定義：
-        // Tp1、Tp2 是兩個泛型的型別數
+        // Tp1、Tp2 是兩個泛型的型別變數
         public class MyClass<Tp1,Tp2>
         {
             public void WriteValue(Tp1 t1,Tp2 t2)
